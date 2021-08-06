@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailActivity">
+
+    <ImageView
+        android:id="@+id/profileImageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/displayNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profileImageView"
+        tools:text="@string/sample_name" />
+
+    <TextView
+        android:id="@+id/reputationTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/displayNameTextView"
+        tools:text="@string/sample_reputation"/>
+
+    <TextView
+        android:id="@+id/goldBadgeCountTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:textSize="25sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/reputationTextView"
+        app:layout_constraintEnd_toStartOf="@id/silverBadgeCountTextView"
+        tools:text="@string/sample_badge_count"/>
+
+    <TextView
+        android:id="@+id/silverBadgeCountTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        app:layout_constraintStart_toEndOf="@id/goldBadgeCountTextView"
+        app:layout_constraintTop_toTopOf="@id/goldBadgeCountTextView"
+        app:layout_constraintEnd_toStartOf="@id/bronzeBadgeCountTextView"
+        tools:text="@string/sample_badge_count"/>
+
+    <TextView
+        android:id="@+id/bronzeBadgeCountTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        app:layout_constraintStart_toEndOf="@id/silverBadgeCountTextView"
+        app:layout_constraintTop_toTopOf="@id/silverBadgeCountTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="@string/sample_badge_count"/>
+
+    <ImageView
+        android:id="@+id/goldMedalImageView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/goldBadgeCountTextView"
+        app:layout_constraintEnd_toStartOf="@id/silverMedalImageView"
+        app:srcCompat="@drawable/medal"
+        app:tint="@color/gold" />
+
+    <ImageView
+        android:id="@+id/silverMedalImageView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toEndOf="@id/goldMedalImageView"
+        app:layout_constraintTop_toTopOf="@id/goldMedalImageView"
+        app:layout_constraintEnd_toStartOf="@id/bronzeMedalImageView"
+        app:srcCompat="@drawable/medal"
+        app:tint="@color/silver" />
+
+    <ImageView
+        android:id="@+id/bronzeMedalImageView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toEndOf="@id/silverMedalImageView"
+        app:layout_constraintTop_toTopOf="@id/goldMedalImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/medal"
+        app:tint="@color/bronze" />
+
+    <TextView
+        android:id="@+id/detailsTextView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:autoSizeTextType="uniform"
+        android:layout_marginVertical="25dp"
+        android:layout_marginHorizontal="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bronzeMedalImageView"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+    <ProgressBar
+        android:id="@+id/loadingBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

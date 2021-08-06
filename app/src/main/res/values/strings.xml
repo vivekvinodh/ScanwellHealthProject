@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ScanwellHealthProject</string>
+    <string name="sample_name">John Smith</string>
+    <string name="sample_reputation">231238472</string>
+    <string name="sample_badge_count">4342</string>
+    <string name="error">Error</string>
+</resources>
