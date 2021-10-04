@@ -3,6 +3,8 @@ package com.example.scanwellhealthproject.data.sources.remote
 import com.example.scanwellhealthproject.networking.UserService
 import com.example.scanwellhealthproject.models.UserResponse
 import com.example.scanwellhealthproject.models.Result
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import retrofit2.Response
 import retrofit2.Retrofit
 import javax.inject.Inject
@@ -15,9 +17,11 @@ class UserRemoteSource @Inject constructor(private val retrofit: Retrofit) {
      *
      * @return Result<UserResponse>
      */
-    suspend fun fetchUsers(): Result<UserResponse> {
+    suspend fun fetchUsers(): Flow<Result<UserResponse>> {
         val userService = retrofit.create(UserService::class.java)
-        return getResponse(request = {userService.getUsers()})
+        return flow {
+            emit(getResponse(request = {userService.getUsers()}))
+        }
     }
 
     /**

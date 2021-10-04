@@ -13,10 +13,10 @@ interface UserDao{
      * Query function to retrieve list of [User], ordered by descending reputation.
      * May be null if no Users.
      *
-     * @return List<User>?
+     * @return List<User>
      */
     @Query("SELECT * FROM user_table order by reputation DESC")
-    fun getAllUsers(): List<User>?
+    fun getAllUsers(): List<User>
 
     /**
      * Query function to retrieve a specific [User] by [accountId]

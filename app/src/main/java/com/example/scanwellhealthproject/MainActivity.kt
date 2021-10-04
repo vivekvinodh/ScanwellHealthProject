@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.scanwellhealthproject.adapters.UsersAdapter
@@ -39,7 +40,6 @@ class MainActivity : AppCompatActivity() {
         recycler_view.adapter = usersAdapter
 
         subscribe()
-
     }
 
     private fun subscribe(){

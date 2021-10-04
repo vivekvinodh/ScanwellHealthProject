@@ -6,9 +6,10 @@ import com.example.scanwellhealthproject.models.Result
 import com.example.scanwellhealthproject.models.User
 import com.example.scanwellhealthproject.models.UserResponse
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.supervisorScope
 import javax.inject.Inject
 
 class UserRepository @Inject constructor(
@@ -25,6 +26,23 @@ class UserRepository @Inject constructor(
      * @return Flow<Result<User>>
      */
     suspend fun fetchUser(id: Int): Flow<Result<User>?> {
+        supervisorScope {
+            launch {
+
+            }
+            launch {
+
+            }
+            val job = coroutineScope {
+                val childJob1 = launch {
+
+                }
+                val childJob2 = launch {
+
+                }
+            }
+        }
+
         return flow {
             emit(Result.loading())
             emit(Result.success(userLocalSource.getUser(id)))
@@ -37,7 +55,14 @@ class UserRepository @Inject constructor(
      *
      * @return Flow<Result<UserResponse>?>
      */
-    suspend fun fetchUsers(): Flow<Result<UserResponse>?> {
+    suspend fun fetchUsersFlow(): Flow<Result<UserResponse>> {
+        return userRemoteSource.fetchUsers()
+            .onStart {
+                emit(fetchCachedUsers())
+                emit(Result.loading())
+            }.onEach { storeData(it) }
+            .flowOn(Dispatchers.IO)
+        /*
         return flow {
             emit(fetchCachedUsers())
             emit(Result.loading())
@@ -52,6 +77,17 @@ class UserRepository @Inject constructor(
             emit(result)
         }.flowOn(Dispatchers.IO)
 
+         */
+    }
+
+    private fun storeData(result: Result<UserResponse>): Result<UserResponse>{
+        if(result.status == Result.Status.SUCCESS){
+            result.data?.items?.let {
+                userLocalSource.deleteAll(it)
+                userLocalSource.insertAll(it)
+            }
+        }
+        return result
     }
 
     /**
@@ -60,8 +96,8 @@ class UserRepository @Inject constructor(
      *
      * @return Result<UserResponse>?
      */
-    private fun fetchCachedUsers(): Result<UserResponse>? =
-        userLocalSource.getAllUsers()?.let {
+    private fun fetchCachedUsers(): Result<UserResponse> =
+        userLocalSource.getAllUsers().let {
             Result.success(UserResponse(false, items = it, 0, 0))
         }
 

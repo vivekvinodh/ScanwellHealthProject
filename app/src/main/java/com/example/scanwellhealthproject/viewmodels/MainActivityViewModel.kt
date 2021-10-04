@@ -1,14 +1,14 @@
 package com.example.scanwellhealthproject.viewmodels
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.scanwellhealthproject.data.UserRepository
 import com.example.scanwellhealthproject.models.Result
 import com.example.scanwellhealthproject.models.UserResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.supervisorScope
 import javax.inject.Inject
 
 /**
@@ -21,16 +21,20 @@ import javax.inject.Inject
 class MainActivityViewModel @Inject constructor(private val userRepository: UserRepository)
     : ViewModel() {
 
-    val userList = MutableLiveData<Result<UserResponse>>()
+    private val _userList = MutableLiveData<Result<UserResponse>>()
+    lateinit var userList : LiveData<Result<UserResponse>>
 
     init {
         getUsers()
+        viewModelScope.launch {
+            userList = userRepository.fetchUsersFlow().asLiveData()
+        }
     }
 
     private fun getUsers() {
         viewModelScope.launch {
-            userRepository.fetchUsers().collect {
-                userList.value = it
+            userRepository.fetchUsersFlow().collect {
+                _userList.value = it
             }
         }
     }
